@@ -1,16 +1,19 @@
-import sys
+from ._base import LinearModelBase, MethodBase
+from ._dge_comparison import DGEEVAL
+from ._edger import EdgeR
+from ._pydeseq2 import PyDESeq2
+from ._simple_tests import SimpleComparisonBase, TTest, WilcoxonTest
+from ._statsmodels import Statsmodels
 
-if sys.version_info[:2] >= (3, 8):
-    # TODO: Import directly (no need for conditional) when `python_requires = >= 3.8`
-    from importlib.metadata import PackageNotFoundError, version  # pragma: no cover
-else:
-    from importlib_metadata import PackageNotFoundError, version  # pragma: no cover
+__all__ = [
+    "MethodBase",
+    "LinearModelBase",
+    "EdgeR",
+    "PyDESeq2",
+    "Statsmodels",
+    "SimpleComparisonBase",
+    "WilcoxonTest",
+    "TTest",
+]
 
-try:
-    # Change here if project is renamed and does not equal the package name
-    dist_name = __name__
-    __version__ = version(dist_name)
-except PackageNotFoundError:  # pragma: no cover
-    __version__ = "unknown"
-finally:
-    del version, PackageNotFoundError
+AVAILABLE_METHODS = [Statsmodels, EdgeR, PyDESeq2, WilcoxonTest, TTest]

@@ -121,7 +121,7 @@ class EdgeR(LinearModelBase):
         # Convert vector to R, which drops a category like `self.design_matrix` to use the intercept for the left out.
         contrast_vec_r = _py_to_r(np.asarray(contrast))
 
-        test = edger.glmQFTest(self.fit, contrast = contrast_vec_r)
+        test = edger.glmQLFTest(self.fit, contrast = contrast_vec_r)
         de_res = edger.topTags(test, n = _py_to_r(np.inf), adjust_method = _py_to_r("BH"))
         de_res = r_base.as_data_frame(de_res)
 
