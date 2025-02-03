@@ -66,18 +66,18 @@ class EdgeR(LinearModelBase):
 
         dge = edger.DGEList(counts=expr_r, samples=_py_to_r(self.adata.obs))
 
-        logger.info("Calculating NormFactors")
+        # logger.info("Calculating NormFactors")
         dge = edger.calcNormFactors(dge)
 
         
-        logger.info("Estimating Dispersions")
+        # logger.info("Estimating Dispersions")
         
         r_design = _py_to_r(self.design)
         r_design = rbase.as_matrix(r_design)
 
         dge = edger.estimateDisp(dge, design=r_design)
 
-        logger.info("Fitting linear model")
+        # logger.info("Fitting linear model")
         fit = edger.glmQLFit(dge, design=r_design, **kwargs)
 
         # ro.globalenv["fit"] = fit
